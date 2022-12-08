@@ -10,10 +10,10 @@ npm i react-router-dom formik yup
 TO RUN\
 run server:\
 cd server\
-nodemon\
+nodemon
 
 
-run client\
+run client
 
 cd client\
-npm start\
+npm start
