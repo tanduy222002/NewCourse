@@ -48,10 +48,12 @@ app.post("/createcourse", (req, res) =>{
     const studyTime = req.body.studyTime;
     const price = req.body.price;
 
-    const stateOfQuery = "";
-    const addCourse = "CALL addCourse(?,?,?,?,?,?,?,?,?, @stateOfQuery)";
+    console.log("courseName: ", courseName);
+    const addCourse = "CALL addCourse(?,?,?,?,?,?,?,?,?, @stateOfQuery); select @stateOfQuery;";
     db.query(addCourse, [courseName, category, imgUrl, script, detail, language, studyTime, insID, price], (err, result) =>{
+        if(err) throw err;
         console.log("result: ", result);
+        res.send(result);
     });
 }
 );

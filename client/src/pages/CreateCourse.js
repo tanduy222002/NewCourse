@@ -37,7 +37,7 @@ function CreateCourse() {
       // console.log(data);
         axios.post("http://localhost:3001/createcourse", data).then((response) => {
           console.log(response);
-          
+          alert(JSON.stringify(response.data));
         });
     
     }

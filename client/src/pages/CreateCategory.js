@@ -53,7 +53,7 @@ function CreateCategory() {
                   id="inputCreateCategory" 
                   name="CategoryName"
                 //   onChange={(e) => setCategoryName(e.target.value)}
-                  placeHolder="(Ex. John123...)"
+                  placeHolder="Ex: Physics"
                       
                     />
                   
