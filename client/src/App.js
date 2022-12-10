@@ -4,11 +4,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./pages/Home";
 import CreateCategory from "./pages/CreateCategory";
 import CreateCourse from "./pages/CreateCourse";
+import CourseDetail from "./pages/courseDetail";
+
 function App() {
 
   
   return (
-    
+ 
     <div className="App">
       <Router>
 
@@ -27,6 +29,8 @@ function App() {
           <Route path='/' exact element={<Home />} />
           <Route path='/createcourse' exact element={<CreateCourse />} />
           <Route path='/createcategory' exact element={<CreateCategory />} />
+          <Route path='/course/:id'  exact element={<CourseDetail />}/>
+          
           {/* <Route path='/post/:id' exact element={<Post />} />
           <Route path='/registration' exact element={<Registration />} />
           <Route path='/login' exact element={<Login />} /> */}
