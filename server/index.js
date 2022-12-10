@@ -13,15 +13,49 @@ const db = mysql.createPool({
     host: "localhost",
     user: "root",
     password: "608474aZ",
-    database: "coursedb",
+    database: "newcourse",
+    multipleStatements: true,
   });
 
 app.get("/", (req, res) =>{
-    const sqlSelect = "SELECT * FROM coursedb.course";
+    const sqlSelect = "SELECT * FROM newcourse.course";
     db.query(sqlSelect, (err, result) =>{
         res.send(result);
     });
 });
+
+app.post("/createcategory", (req, res) => {
+    
+    const CategoryName = req.body.CategoryName;
+    console.log("categoryName: ", CategoryName)
+    const sqlCreateCat = "CALL ADD_CATEGORY(?, @state); select @state;";
+    db.query(sqlCreateCat,[CategoryName], (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        res.send(result);
+    }
+    );
+});
+
+app.post("/createcourse", (req, res) =>{
+    const courseName = req.body.courseName;
+    const category = req.body.category;
+    const imgUrl = req.body.imgUrl;
+    const script = req.body.script;
+    const detail = req.body.detail;
+    const insID = req.body.insID;
+    const language = req.body.language;
+    const studyTime = req.body.studyTime;
+    const price = req.body.price;
+
+    const stateOfQuery = "";
+    const addCourse = "CALL addCourse(?,?,?,?,?,?,?,?,?, @stateOfQuery)";
+    db.query(addCourse, [courseName, category, imgUrl, script, detail, language, studyTime, insID, price], (err, result) =>{
+        console.log("result: ", result);
+    });
+}
+);
+
 
 app.listen(3001, () =>{
     console.log("running on port 3001");
