@@ -22,7 +22,11 @@ CALL ADD_CATEGORY("Mathematic", @state);
 
 CALL ADD_CATEGORY(`CategoryName` = 'Physics', @state);
 
+CALL addCourse('a','a','https://www.youtube.com/results?search_query=get+respond+and+send+to+view','a','a','English','37:00','3','200', @stateOfQuery); 
+CALL addCourse('fuzzy logic','Mathematic','https://www.tutorialspoint.com/artificial_intelligence/images/fuzzylogic_system.jpg','Logic mờ (tiếng Anh: Fuzzy logic) được phát triển từ lý thuyết tập mờ.','Mặc dù được chấp nhận rộng rãi và có nhiều ứng dụng thành công, lôgic mờ vẫn bị phê phán tại một số cộng đồng nghiên cứu. ','English','37:00','2','200', @stateOfQuery);
+select @stateOfQuery;
 
+select @stateOfQuery;
 select @state;
 SHOW PROCEDURE STATUS WHERE db = newcourse;
 delete from Categories where categoryID = 3;
@@ -30,6 +34,8 @@ select * from Categories;
 select * from course;
 select * from instructor;
 select * from BELONGTO;
+select * from instructor;
+delete from Categories where categoryID = 8
 -- test NEW CATEGORIES
 CALL addCourse("General Chemistry",
 				"Chemistry", 
@@ -95,3 +101,30 @@ BEGIN
 	end if;
 END $$
 DELIMITER ;
+
+-- filter by category
+DROP PROCEDURE IF EXISTS FILTER_CATEGORY;
+DELIMITER $$
+CREATE PROCEDURE FILTER_CATEGORY(
+    IN CategoryName VARCHAR(30),
+    OUT stateOUT VARCHAR(255)
+)
+BEGIN
+	DECLARE Cid INT;
+    set cid = -1;
+    SELECT categoryID INTO Cid FROM Categories WHERE Categories.categoryName=CategoryName;
+    IF Cid = -1 THEN
+		-- INSERT INTO Categories (categoryName) VALUES(CategoryName);
+        SET stateOUT = 'Category has not exists';
+	ELSE
+		select * from course join categories join belongto 
+		where belongto.courseid = course.courseid and belongto.categoryID = Cid and  Categories.categoryID = Cid;
+        SET stateOUT = 'filter complete';
+    END IF;
+END $$
+DELIMITER ;
+
+CALL FILTER_CATEGORY('math', @STATE);
+select @state;
+
+delete from course where courseID = 30000011

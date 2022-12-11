@@ -35,6 +35,52 @@ app.get("/", (req, res) =>{
     });
 });
 
+// query all categories
+app.get("/category", (req, res) =>{
+    const sqlSelect = "SELECT * FROM newcourse.categories";
+    db.query(sqlSelect,
+    function (error, results, fields) {
+        if (error) throw error;
+        console.log(results);
+        res.send(results);
+    }
+);
+});
+// query course by name
+app.post("/", (req, res) =>{
+    const courseName = req.body.courseName;
+    console.log("courseName: ", courseName);
+     
+    db.query('SELECT * FROM newcourse.course WHERE courseName like ?', ['%' + courseName + '%'], 
+    function (error, results, fields) {
+        if (error) throw error;
+        console.log(results);
+        res.send(results);
+    }
+);
+    
+}
+);
+
+// query course by category
+app.post("/:id", (req, res) =>{
+    const {categoryid} = req.body.categoryID;
+    console.log("categoryID: ", categoryID);
+    
+    const sql = "SELECT * FROM newcourse.course WHERE categoryID = ?";
+    db.query(sql, [categoryID], (err, result) =>{
+        if(err) throw err;
+        console
+        .log(result);
+        res.send(result);
+    }
+);
+    
+}
+);
+
+
+
 app.post("/createcategory", (req, res) => {
     
     const CategoryName = req.body.CategoryName;
