@@ -1,5 +1,5 @@
 -- drop database NewCourse;
-CREATE DATABASE NewCourse;
+-- CREATE DATABASE NewCourse;
 
 USE NewCourse;
 
@@ -96,9 +96,7 @@ CREATE TABLE CourseInCart
   	FOREIGN KEY (courseID) 		 REFERENCES Course(CourseID),
   	FOREIGN KEY (cartID)	 	 REFERENCES Cart(cartID)
 );
-DROP TABLE IF EXISTS AddToCart;
-select * from cart;
-select * from AddToCart;
+
 CREATE TABLE AddToCart
 (
   cartID			int			NOT NULL,
@@ -145,6 +143,7 @@ CREATE TABLE Instructor
   CONSTRAINT passCheckIns CHECK ((insPassword like '%0%'or insPassword like '%1%'or insPassword like '%2%'or insPassword like '%3%'or insPassword like '%4%'or insPassword like '%5%'or insPassword like '%6%'or insPassword like '%7%'or insPassword like '%8%'or insPassword like '%9%') and  length(insPassword)>=8),
   PRIMARY KEY (userID)
 );
+
 CREATE TABLE Categories 
 (
 	categoryID				int NOT NULL AUTO_INCREMENT,
@@ -169,6 +168,7 @@ CREATE TABLE Course
   CONSTRAINT priceCheckCourse CHECK (price>0),
   PRIMARY KEY (courseID)
 );
+
 CREATE TABLE SubtitlesCourse
 (
     courseID				int			NOT NULL,

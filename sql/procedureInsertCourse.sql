@@ -102,4 +102,29 @@ BEGIN
 END $$
 DELIMITER ;
 
+-- filter by category
+DROP PROCEDURE IF EXISTS FILTER_CATEGORY;
+DELIMITER $$
+CREATE PROCEDURE FILTER_CATEGORY(
+    IN CategoryName VARCHAR(30),
+    OUT stateOUT VARCHAR(255)
+)
+BEGIN
+	DECLARE Cid INT;
+    set cid = -1;
+    SELECT categoryID INTO Cid FROM Categories WHERE Categories.categoryName=CategoryName;
+    IF Cid = -1 THEN
+		-- INSERT INTO Categories (categoryName) VALUES(CategoryName);
+        SET stateOUT = 'Category has not exists';
+	ELSE
+		select * from course join categories join belongto 
+		where belongto.courseid = course.courseid and belongto.categoryID = Cid and  Categories.categoryID = Cid;
+        SET stateOUT = 'filter complete';
+    END IF;
+END $$
+DELIMITER ;
 
+CALL FILTER_CATEGORY('math', @STATE);
+select @state;
+
+delete from course where courseID = 30000011
