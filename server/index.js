@@ -12,10 +12,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = mysql.createPool({
     host: "localhost",
     user: "root",
-    password: "608474aZ",
+    password: "123456",
     database: "newcourse",
     multipleStatements: true,
   });
+
+
+  // query course detail
+  
+app.post("/courseDetail",(req,res)=>{
+    console.log("call");
+    let cID=parseInt(req.body.courseID);
+    const sqlCreateCat = "CALL getCourseInfo(?);";
+    db.query(sqlCreateCat,cID, (err, result) => {
+        if(err) throw err;
+        console.log(result[0]);
+        res.send(result[0]);
+    }
+    );
+})
+
 
   // query all courses
 app.get("/", (req, res) =>{

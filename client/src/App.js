@@ -30,6 +30,7 @@ function App() {
           <Route path='/createcourse' exact element={<CreateCourse />} />
           <Route path='/createcategory' exact element={<CreateCategory />} />
           <Route path='/:id'  exact element={<Home />}/>
+          <Route path='/course/:id'  exact element={<CourseDetail />}/>
           
           {/* <Route path='/post/:id' exact element={<Post />} />
           <Route path='/registration' exact element={<Registration />} />
