@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./pages/Home";
 import CreateCategory from "./pages/CreateCategory";
 import CreateCourse from "./pages/CreateCourse";
-import CourseDetail from "./pages/courseDetail";
+import CourseDetail from "./pages/CourseDetail";
 
 function App() {
 

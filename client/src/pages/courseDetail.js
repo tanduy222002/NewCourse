@@ -1,6 +1,9 @@
-import CoursePage from "../component/coursePage"
-export default function coursePage(){
+import CoursePage from "../component/CoursePage"
+import { useParams } from "react-router-dom";
+import axios from "axios";
+
+export default function CourseDetail(){
     return(
-        <CoursePage/>
+        <CoursePage />
     )
 }

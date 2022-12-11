@@ -5,20 +5,36 @@ import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom'
 
-function Home() {
-    // const [listOfCourses, setListOfCourses] = useState([]);
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
-  // useEffect(() =>{
-  //   axios.get("http://localhost:3001/").then((response)=>{
-  //     console.log(response.data);
-  //     setListOfCourses(response.data);
-  //   })
-  // }, []);
-  const listOfCourses=[{"id":"5","courseName":"ttt","imgUrl":"https://img.freepik.com/free-vector/cartoon-maths-elements-background_52683-9162.jpg?w=740&t=st=1670690251~exp=1670690851~hmac=0c14bbb6cd880c05ed88dc6794b98ec50940339acdc1f863750654ac04893806","script":"this is script"}]
-  // setListOfCourses(list)
+function Home() {
+    const [listOfCourses, setListOfCourses] = useState([]);
+
+  useEffect(() =>{
+    axios.get("http://localhost:3001/").then((response)=>{
+      console.log(response.data);
+      setListOfCourses(response.data);
+    })
+  }, []);
+  // const listOfCourses=[{"id":"5","courseName":"ttt","imgUrl":"https://img.freepik.com/free-vector/cartoon-maths-elements-background_52683-9162.jpg?w=740&t=st=1670690251~exp=1670690851~hmac=0c14bbb6cd880c05ed88dc6794b98ec50940339acdc1f863750654ac04893806","script":"this is script"}]
+  // // setListOfCourses(list)
   const navigate = useNavigate()
   return (
     <div>
+    <InputGroup className="mb-3">
+        <Form.Control
+          placeholder="Name of book"
+          aria-label="Recipient's username"
+          aria-describedby="basic-addon2"
+        />
+        <Button variant="outline-secondary" id="button-addon2">
+          Search
+        </Button>
+      </InputGroup>
+
+
       {listOfCourses?.map((value, key) => {
           {/* var img = document.createElement("img");
           img.src = {value,imgUrl};

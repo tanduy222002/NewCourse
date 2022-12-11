@@ -1,6 +1,10 @@
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Button } from "bootstrap"
-import "./coursePage.css"
-export default function coursePage(props){
+import "./CoursePage.css"
+
+export default function CoursePage(props){
+    let { id } = useParams();
     return(
         <div className="main-div">
             <div className="content-div">
