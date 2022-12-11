@@ -12,14 +12,25 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = mysql.createPool({
     host: "localhost",
     user: "root",
-    password: "608474aZ",
+    password: "123456",
     database: "newcourse",
     multipleStatements: true,
   });
 
+app.post("/courseDetail",(req,res)=>{
+    console.log("call");
+    let cID=req.body.courseID;
+    const sqlSelect = `SELECT * FROM newcourse.course WHERE courseID = ${cID}`;
+    db.query(sqlSelect, (err, result) =>{
+        console.log(result);
+        res.send(result);
+    });
+})
+
 app.get("/", (req, res) =>{
     const sqlSelect = "SELECT * FROM newcourse.course";
     db.query(sqlSelect, (err, result) =>{
+        if(err) throw err;
         res.send(result);
     });
 });

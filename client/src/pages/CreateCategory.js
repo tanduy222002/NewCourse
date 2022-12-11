@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Formik, Form, Field, ErrorMessage} from 'formik'
 import  * as Yup from 'yup';
 import axios from "axios";
@@ -28,7 +28,7 @@ function CreateCategory() {
   
     const onSubmit = (data) =>{
         // const data1 = {categoryName: categoryName};
-
+      useEffect
         axios.post("http://localhost:3001/createcategory", data).then((response) => {
           const result = response.data[1][0];
             console.log(response.data[1][0]);
