@@ -18,11 +18,31 @@ const db = mysql.createPool({
   });
 
 app.get("/", (req, res) =>{
-    const sqlSelect = "SELECT * FROM newcourse.course";
-    db.query(sqlSelect, (err, result) =>{
-        res.send(result);
-    });
+    console.log(req.body);
+    if(req.body.courseName == null){
+        const sqlSelect = "SELECT * FROM newcourse.course";
+        db.query(sqlSelect, (err, result) =>{
+            res.send(result);
+        });
+    }
 });
+
+app.post("/", (req, res) =>{
+    const courseName = req.body.courseName;
+    console.log("courseName: ", courseName);
+     
+    db.query('SELECT * FROM newcourse.course WHERE courseName like ?', ['%' + courseName + '%'], 
+    function (error, results, fields) {
+        if (error) throw error;
+        console.log(results);
+        res.send(results);
+    }
+);
+    
+}
+);
+
+
 
 app.post("/createcategory", (req, res) => {
     

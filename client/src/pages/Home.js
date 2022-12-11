@@ -6,12 +6,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom'
 
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+// import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+
+
+import {Formik, Form, Field, ErrorMessage} from 'formik'
 
 function Home() {
     const [listOfCourses, setListOfCourses] = useState([]);
-
+    const navigate = useNavigate();
+    const initialValues = {
+      courseName: "",
+    };
   useEffect(() =>{
     axios.get("http://localhost:3001/").then((response)=>{
       console.log(response.data);
@@ -20,19 +26,40 @@ function Home() {
   }, []);
   // const listOfCourses=[{"id":"5","courseName":"ttt","imgUrl":"https://img.freepik.com/free-vector/cartoon-maths-elements-background_52683-9162.jpg?w=740&t=st=1670690251~exp=1670690851~hmac=0c14bbb6cd880c05ed88dc6794b98ec50940339acdc1f863750654ac04893806","script":"this is script"}]
   // // setListOfCourses(list)
-  const navigate = useNavigate()
+  
+  const onSubmit = (data) =>{
+    console.log(data);
+      axios.post("http://localhost:3001/", data).then((response) => {
+        console.log(response);
+        // alert(JSON.stringify(response.data));
+        setListOfCourses(response.data);
+      });
+  
+  }
   return (
     <div>
-    <InputGroup className="mb-3">
-        <Form.Control
-          placeholder="Name of book"
-          aria-label="Recipient's username"
-          aria-describedby="basic-addon2"
-        />
-        <Button variant="outline-secondary" id="button-addon2">
-          Search
-        </Button>
-      </InputGroup>
+    <div className="SearchCourse" >
+          <Formik initialValues={initialValues} onSubmit={onSubmit}>
+              <Form className="formContainer">
+
+                
+                  <label>Search for course name: </label>
+                  <ErrorMessage name="CategoryName" component="span"/> 
+                  <Field 
+                  autoComplete="off"
+                  id="SearchCourse" 
+                  name="courseName"
+                //   onChange={(e) => setCategoryName(e.target.value)}
+                  placeHolder="Ex: Math"
+                      
+                    />
+                  
+                  
+                  <button type="submit">Search</button>
+              </Form>
+          </Formik>
+  
+      </div>
 
 
       {listOfCourses?.map((value, key) => {
