@@ -98,7 +98,7 @@ function Home() {
         return (
           
           <div className= "CourseList">
-            <div key={key}  onClick={() => navigate(`/course/${value.id}`)}>
+            <div key={key}  onClick={() => navigate(`/course/${value.courseID}`)}>
               <div className="course">
                 <div className="name">{value.courseName}</div>
                 <img className="img-course" src={value.imgUrl} alt="..." ></img>
