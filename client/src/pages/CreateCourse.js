@@ -34,7 +34,7 @@ function CreateCourse() {
   
   
     const onSubmit = (data) =>{
-      // console.log(data);
+      console.log(data);
         axios.post("http://localhost:3001/createcourse", data).then((response) => {
           console.log(response);
           alert(JSON.stringify(response.data));
@@ -57,7 +57,7 @@ function CreateCourse() {
                   autoComplete="off"
                   id="inputCreateCourse" 
                   name="courseName" 
-                  placeHolder="(Ex. John123...)"
+                  placeHolder="(Ex. Programming)"
                       
                   />
                     <label>Category: </label>
@@ -85,7 +85,7 @@ function CreateCourse() {
                   autoComplete="off"
                   id="inputCreateCourse" 
                   name="script" 
-                  placeHolder="Ex:category..."
+                  placeHolder="Ex: The course is about ..."
                       
                   />
 
@@ -95,7 +95,7 @@ function CreateCourse() {
                   autoComplete="off"
                   id="inputCreateCourse" 
                   name="detail" 
-                  placeHolder="Ex:category..."
+                  placeHolder="Ex:Detail about course"
                       
                   />
 

@@ -94,21 +94,21 @@ app.get("/cart",(req,res)=>{
 })
 
 // query course by category
-app.post("/:id", (req, res) =>{
-    const {categoryid} = req.body.categoryID;
-    console.log("categoryID: ", categoryID);
+// app.post("/:id", (req, res) =>{
+//     const {categoryid} = req.body.categoryID;
+//     console.log("categoryID: ", categoryID);
     
-    const sql = "SELECT * FROM newcourse.course WHERE categoryID = ?";
-    db.query(sql, [categoryID], (err, result) =>{
-        if(err) throw err;
-        console
-        .log(result);
-        res.send(result);
-    }
-);
+//     const sql = "SELECT * FROM newcourse.course WHERE categoryID = ?";
+//     db.query(sql, [categoryID], (err, result) =>{
+//         if(err) throw err;
+//         console
+//         .log(result);
+//         res.send(result);
+//     }
+// );
     
-}
-);
+// }
+// );
 
 
 

@@ -46,7 +46,7 @@ function CreateCategory() {
               <Form className="formContainer">
 
                 
-                  <label>category Name: </label>
+                  <label>Category Name: </label>
                   <ErrorMessage name="CategoryName" component="span"/> 
                   <Field 
                   autoComplete="off"
