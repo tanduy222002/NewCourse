@@ -9,13 +9,22 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
+// const db = mysql.createPool({
+//     host: "localhost",
+//     user: "root",
+//     password: "608474aZ",
+//     database: "newcourse",
+//     multipleStatements: true,
+//   });
+  
 const db = mysql.createPool({
     host: "localhost",
     user: "root",
-    password: "608474aZ",
+    password: "123456",
     database: "newcourse",
     multipleStatements: true,
   });
+
 
 
   // query course detail
@@ -70,6 +79,19 @@ app.post("/", (req, res) =>{
     
 }
 );
+//query cart
+app.get("/cart",(req,res)=>{
+    console.log("cart");
+    let cID=parseInt(req.query.id);
+    console.log(cID);
+    const sqlCreateCat = "CALL getCourseInCart(?);";
+    db.query(sqlCreateCat,cID, (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        res.send(result[0]);
+    }
+    );
+})
 
 // query course by category
 app.post("/:id", (req, res) =>{
