@@ -9,7 +9,9 @@ BEGIN
 	DECLARE Cid INT;
     set cid = -1;
     SELECT categoryID INTO Cid FROM Categories WHERE Categories.categoryName=CategoryName;
-    IF Cid = -1 THEN
+    IF CategoryName = "" THEN
+		SET stateOUT = 'Category has not been null';
+    ELSEIF Cid = -1 THEN
 		INSERT INTO Categories (categoryName) VALUES(CategoryName);
         SET stateOUT = 'Category has been added';
 	ELSE
@@ -17,8 +19,6 @@ BEGIN
     END IF;
 END $$
 DELIMITER ;
-
-
 
 -- test NEW CATEGORIES
 CALL addCourse("Organic Chemistry",
