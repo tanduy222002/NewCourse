@@ -25,7 +25,19 @@ const db = mysql.createPool({
     multipleStatements: true,
   });
 
+//check course in cart
 
+app.get("/courseInCart",(req,res)=>{
+    console.log("course in cart");
+    let cID=3;
+    const sqlCreateCat = "CALL checkCourseInCart(?);";
+    db.query(sqlCreateCat,cID, (err, result) => {
+        if(err) throw err;
+        console.log(result[0]);
+        res.send(result[0]);
+    }
+    );
+})
 
   // query course detail
   
@@ -43,16 +55,21 @@ app.post("/courseDetail",(req,res)=>{
 
 // post add course to cart
 app.post("/courseToCart",(req,res)=>{
+    try{
     console.log("call");
     let cID=parseInt(req.body.courseID);
     let uID= parseInt(req.body.userID);
     const sqlCreateCat = "CALL addCourseToCart(?,?);";
     db.query(sqlCreateCat,[uID,cID], (err, result) => {
-        if(err) throw err;
-        console.log('successfully');
+        // if(err) throw err;
+        console.log('successfully');}
+  
+    );}
+    catch(e ){
+        console.error(e.stack);
     }
-    );
-})
+}
+)
 
   // query all courses
 app.get("/", (req, res) =>{

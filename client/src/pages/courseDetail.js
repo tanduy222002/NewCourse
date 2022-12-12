@@ -6,13 +6,22 @@ import "../component/CoursePage.css"
 export default function CourseDetail(){
     let [data, setData] = useState([]);
     let { id } = useParams();
+    let cart;
     useEffect(() =>{
         axios.post("http://localhost:3001/courseDetail", {'courseID' : id}).then((response)=>{
         console.log(response.data);
         setData(response.data);})
     }, []);
     const addToCartBtnOnClick=()=>{
-        axios.post("http://localhost:3001/courseToCart", {'courseID' : id,'userID': '3'}).then((response)=>{
+    //     axios.get("http://localhost:3001/courseInCart").then((response)=>{
+    //     cart = (response.data);})
+    //     console.log(cart);
+    //     let result = cart.filter(rs => rs.courseID==parseInt(id))
+    //     console.log(result);
+    //      if (result.length!=0){
+    //      alert("This course has already added to your cart");
+    // } else{
+             axios.post("http://localhost:3001/courseToCart", {'courseID' : id,'userID': '3'}).then((response)=>{
             console.log(response);})
     }
     return (
