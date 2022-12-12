@@ -41,13 +41,13 @@ export default function CartDeTail(){
                     </div>
                 </td>
                 <td>{value.script}</td>
-                <td>{value.price}</td>
+                <td>{value.price}$</td>
                 </tbody>)})}
                
            
         </table>
             </div>
-            <h3 className="h3h">Total: {total}</h3>
+            <h3 className="h3h">Total: {total}$</h3>
         </div>
              
         
