@@ -56,3 +56,8 @@ th, td{
 td:last-child{
     border-radius: 0 5px 5px 0;
 }
+.h3h{
+    text-align: end;
+    margin-right: 0px;
+    margin-left: auto;
+}

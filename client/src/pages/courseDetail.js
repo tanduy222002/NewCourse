@@ -11,7 +11,10 @@ export default function CourseDetail(){
         console.log(response.data);
         setData(response.data);})
     }, []);
-
+    const addToCartBtnOnClick=()=>{
+        axios.post("http://localhost:3001/courseToCart", {'courseID' : id,'userID': '3'}).then((response)=>{
+            console.log(response);})
+    }
     return (
     <div className="m-div">
     {data?.map((value, key) => {
@@ -23,7 +26,7 @@ export default function CourseDetail(){
                         <h1>{value.courseName}</h1>
                         <h2>{value.script}</h2>
                         <h2>{value.detail}</h2>
-                        <button>Enroll for free</button>
+                        <button onClick={addToCartBtnOnClick}>Add to cart</button>
                     </div>
                     <img src={value.imgUrl} ></img>
     
