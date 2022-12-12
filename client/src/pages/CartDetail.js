@@ -10,12 +10,12 @@ export default function CartDeTail(){
         console.log(response.data);
         setData(response.data);})
     }, []);
-
+    let total=0;
 
 
     return(
      
-                <div className="main-div">
+            <div className="main-div">
             <div className="header">
                 <h1>Course Cart</h1>
                 <h2>{data.length} items</h2>
@@ -31,7 +31,7 @@ export default function CartDeTail(){
             </thead>
            
             {data?.map((value, key) => {
-           
+                total+=value.price;
              return(
                 <tbody>
                 <td key={key}>
@@ -47,6 +47,7 @@ export default function CartDeTail(){
            
         </table>
             </div>
+            <h3 className="h3h">Total: {total}</h3>
         </div>
              
         

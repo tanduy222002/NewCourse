@@ -41,6 +41,18 @@ app.post("/courseDetail",(req,res)=>{
     );
 })
 
+// post add course to cart
+app.post("/courseToCart",(req,res)=>{
+    console.log("call");
+    let cID=parseInt(req.body.courseID);
+    let uID= parseInt(req.body.userID);
+    const sqlCreateCat = "CALL addCourseToCart(?,?);";
+    db.query(sqlCreateCat,[uID,cID], (err, result) => {
+        if(err) throw err;
+        console.log('successfully');
+    }
+    );
+})
 
   // query all courses
 app.get("/", (req, res) =>{
