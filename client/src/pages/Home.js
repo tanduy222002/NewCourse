@@ -57,7 +57,7 @@ function Home() {
     <div>
     <div className="SearchCourse" >
           <Formik initialValues={initialValues} onSubmit={onSubmit}>
-              <Form className="formContainer">
+              <Form className="formContainerSearch">
 
                 
                   <label>Search for course name: </label>

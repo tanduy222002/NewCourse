@@ -18,37 +18,21 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL ADD_CATEGORY("Mathematic", @state);
 
-CALL ADD_CATEGORY(`CategoryName` = 'Physics', @state);
 
-CALL addCourse('a','a','https://www.youtube.com/results?search_query=get+respond+and+send+to+view','a','a','English','37:00','3','200', @stateOfQuery); 
-CALL addCourse('fuzzy logic','Mathematic','https://www.tutorialspoint.com/artificial_intelligence/images/fuzzylogic_system.jpg','Logic mờ (tiếng Anh: Fuzzy logic) được phát triển từ lý thuyết tập mờ.','Mặc dù được chấp nhận rộng rãi và có nhiều ứng dụng thành công, lôgic mờ vẫn bị phê phán tại một số cộng đồng nghiên cứu. ','English','37:00','2','200', @stateOfQuery);
-select @stateOfQuery;
-
-select @stateOfQuery;
-select @state;
-SHOW PROCEDURE STATUS WHERE db = newcourse;
-delete from Categories where categoryID = 3;
-select * from Categories;
-select * from course;
-select * from instructor;
-select * from BELONGTO;
-select * from instructor;
-delete from Categories where categoryID = 8
 -- test NEW CATEGORIES
-CALL addCourse("General Chemistry",
+CALL addCourse("Organic Chemistry",
 				"Chemistry", 
-                "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/fa/6926005ea411e490ff8d4c5d4ff426/chemistry_logo.png?auto=format%2Ccompress&dpr=1",
-                "General Chemistry is awesome!",
-                "This is so awesome",
+                "https://theimportantsite.com/wp-content/uploads/2022/05/organic-chemistry.jpeg",
+                "Organic chemistry is a highly creative science that allows chemists to create and explore molecules and compounds.",
+                "Organic chemistry is the study of the structure, properties, composition, reactions, and preparation of carbon-containing compounds. Most organic compounds contain carbon and hydrogen, but they may also include any number of other elements (e.g., nitrogen, oxygen, halogens, phosphorus, silicon, sulfur).",
                 "English",
                 '27:03',
                 3,
-                100,
+                200,
                 @state);
 select @state;
-
+SELECT * FROM COURSE;
 -- ADD NEW COURSE
 DROP PROCEDURE IF EXISTS addCourse;
 DELIMITER $$
@@ -76,12 +60,27 @@ BEGIN
     SET categoryNumber = -1;
     SELECT categoryID INTO categoryNumber FROM Categories WHERE Categories.categoryName=category_IN;
     
-	
-   
-	IF instructorNumber = -1 THEN
+	IF courseName_IN = "" THEN
+		SET stateOUT = 'Course name cannot be null';
+	ELSEIF category_IN = "" THEN
+		SET stateOUT = 'Category cannot be null';
+	ELSEIF script_IN = "" THEN
+		SET stateOUT = 'Script cannot be null';
+	ELSEIF detail_IN = "" THEN
+		SET stateOUT = 'Detail cannot be null';
+	ELSEIF language_IN = "" THEN
+		SET stateOUT = 'Language cannot be null';
+	ELSEIF instructorID_IN = "" THEN
+		SET stateOUT = 'Price cannot be null';
+        
+	ELSEIF instructorNumber = -1 THEN
 		SET stateOUT = 'Instructor does not exists';
 	ELSEIF categoryNumber = -1 THEN
 		SET stateOUT = 'Category does not exists';
+	ELSEIF price_in < 0 THEN
+		SET stateOUT = 'Price cannot be negative';
+	ELSEIF averageStudyTime_IN < 0 THEN
+		SET stateOUT = 'StudyTime cannot be negative';
 	else -- success
 		INSERT INTO course (courseName, imgurl,script,detail, firstPostDate,lastUpdate,language, averageStudyTime, price) 
 		VALUES 				(courseName_IN,
@@ -101,30 +100,33 @@ BEGIN
 	end if;
 END $$
 DELIMITER ;
-
--- filter by category
-DROP PROCEDURE IF EXISTS FILTER_CATEGORY;
+explain course;
+-- Change price of Course
+DROP PROCEDURE IF EXISTS CHANGE_PRICE_COURSE;
 DELIMITER $$
-CREATE PROCEDURE FILTER_CATEGORY(
-    IN CategoryName VARCHAR(30),
+CREATE PROCEDURE CHANGE_PRICE_COURSE(
+	IN courseIDIN INT,
+    IN priceIN int,
     OUT stateOUT VARCHAR(255)
 )
 BEGIN
-	DECLARE Cid INT;
-    set cid = -1;
-    SELECT categoryID INTO Cid FROM Categories WHERE Categories.categoryName=CategoryName;
-    IF Cid = -1 THEN
-		-- INSERT INTO Categories (categoryName) VALUES(CategoryName);
-        SET stateOUT = 'Category has not exists';
+	DECLARE numid INT;
+    set numid = -1;
+    SELECT courseID INTO numid FROM course WHERE course.courseID=courseIDIN;
+    IF numid = -1 THEN
+        SET stateOUT = 'Course has not been exists';
+	ELSEIF PRICEIN < 0 THEN
+		SET stateOUT = 'Price cannot be negative';
 	ELSE
-		select * from course join categories join belongto 
-		where belongto.courseid = course.courseid and belongto.categoryID = Cid and  Categories.categoryID = Cid;
-        SET stateOUT = 'filter complete';
+		update course 
+        set course.price = priceIN
+        where course.courseID = numID;
+		SET stateOUT = 'Change price of the course complete';
     END IF;
 END $$
 DELIMITER ;
 
-CALL FILTER_CATEGORY('math', @STATE);
-select @state;
 
-delete from course where courseID = 30000011
+
+
+
